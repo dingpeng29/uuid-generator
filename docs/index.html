@@ -55,6 +55,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .powered{text-align:center;font-size:13px;color:var(--text2);margin-top:24px;}.powered a{color:var(--primary);text-decoration:none;font-weight:600;}
 .copy-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 24px;border-radius:20px;font-size:14px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
 .copy-toast.show{opacity:1;}
+
+.related-tools{margin-top:20px;}
+.related-tools h2{font-size:16px;margin-bottom:12px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.related-card{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card);border-radius:var(--radius-sm);text-decoration:none;color:var(--text);border:1px solid var(--border);font-size:13px;transition:all .2s;}
+.related-card:hover{border-color:var(--primary);background:#eff6ff;}
+.related-card .ricon{font-size:18px;}
 </style>
 </head>
 <body>
@@ -124,6 +131,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </ul>
 </div>
 
+
+<div class="related-tools">
+<h2>🧰 相关工具推荐</h2>
+<div class="related-grid">
+<a class="related-card" href="/password-generator/"><span class="ricon">🔐</span><span>密码生成器</span></a>
+<a class="related-card" href="/qr-decoder/"><span class="ricon">📱</span><span>二维码解码器</span></a>
+<a class="related-card" href="/timestamp-converter/"><span class="ricon">⏰</span><span>时间戳转换器</span></a>
+<a class="related-card" href="/cron-generator/"><span class="ricon">⌚</span><span>Cron生成器</span></a>
+</div>
+</div>
 <div class="powered">由 <a href="/">ToolBox Pro</a> 提供支持 · <a href="https://github.com/dingpeng29/uuid-generator" target="_blank">GitHub</a></div>
 </div>
 <footer class="footer"><p>UUID Generator — 所有生成在浏览器本地完成 · <a href="https://github.com/dingpeng29/uuid-generator" target="_blank">GitHub</a> · <a href="/">更多免费工具 →</a></p></footer>
