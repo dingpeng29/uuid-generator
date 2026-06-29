@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="免费在线UUID/GUID生成器，支持v1/v4版本，批量生成，多种格式输出。纯浏览器本地生成，无需上传数据。">
+<meta name="keywords" content="UUID生成器,GUID生成器,UUID v4,在线UUID,随机UUID,UUID generator,批量生成UUID">
+<meta property="og:title" content="UUID/GUID在线生成器 | ToolBox Pro">
+<meta property="og:description" content="在线生成UUID/GUID，支持v1/v4版本，批量生成，多种格式。">
+<meta property="og:url" content="https://dingpeng29.github.io/uuid-generator/">
+<title>UUID/GUID在线生成器 | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"UUID生成器","url":"https://dingpeng29.github.io/uuid-generator/","description":"在线生成UUID/GUID标识符","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;text-decoration:none;color:var(--text);}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:20px;}
+.card h2{font-size:16px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+
+.uuid-display{display:flex;align-items:center;gap:12px;padding:18px;background:var(--bg);border-radius:var(--radius-sm);border:2px solid var(--green);margin-bottom:20px;}
+.uuid-display .uuid-text{flex:1;font-size:22px;font-family:'SF Mono','Consolas',monospace;word-break:break-all;letter-spacing:0.5px;}
+
+.uuid-list{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+.uuid-item{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);font-family:'SF Mono','Consolas',monospace;font-size:13px;transition:background .2s;}
+.uuid-item:hover{background:#eff6ff;}
+.uuid-item .n{color:var(--text2);font-size:11px;min-width:24px;}
+.uuid-item .txt{flex:1;word-break:break-all;}
+
+.format-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.format-tag{padding:6px 14px;border-radius:20px;font-size:12px;font-family:'SF Mono','Consolas',monospace;background:var(--bg);border:1px solid var(--border);cursor:pointer;transition:all .2s;user-select:none;}
+.format-tag.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-h);}
+.btn-green{background:var(--green);color:#fff;}.btn-green:hover{background:#059669;}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--border);}
+.btn-sm{padding:5px 10px;font-size:11px;}
+.btn-lg{padding:14px 32px;font-size:16px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px;}
+
+.donate-box{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:var(--radius);padding:20px 24px;text-align:center;border:1px solid #fcd34d;margin-bottom:16px;}
+.donate-box h3{color:#92400e;font-size:16px;margin-bottom:4px;}
+.donate-box p{color:#a16207;font-size:13px;margin-bottom:8px;}
+
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+.powered{text-align:center;font-size:13px;color:var(--text2);margin-top:24px;}.powered a{color:var(--primary);text-decoration:none;font-weight:600;}
+.copy-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 24px;border-radius:20px;font-size:14px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+.copy-toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<header class="header"><a href="/uuid-generator/" class="logo">🆔 UUID生成器</a><a href="/" class="back">← ToolBox Pro</a></header>
+<div class="container">
+<div class="hero"><h1>UUID/GUID在线生成器</h1><p>在线生成UUID/GUID标识符，支持v4随机UUID和v1时间戳UUID。所有生成在浏览器本地完成。</p></div>
+
+<div class="donate-box">
+<h3>❤️ 支持这个工具</h3>
+<p>完全免费、无广告。如果帮到了你，欢迎支持 ☕</p>
+<div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:12px;">
+<div style="text-align:center;background:#fff;padding:16px 20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+<img src="donate-qr.jpg" alt="微信赞赏码" style="width:200px;height:200px;border-radius:8px;">
+<span style="font-size:13px;color:#92400e;font-weight:700;margin-top:8px;display:block;">微信扫码赞赏</span>
+</div>
+<div style="text-align:center;background:#fff;padding:16px 20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+<span style="font-size:48px;display:block;margin-bottom:8px;">💝</span>
+<span style="font-size:13px;color:#92400e;font-weight:700;display:block;">爱发电按月赞助</span>
+<span style="font-size:11px;color:#94a3b8;display:block;">每月支持 · 持续创作</span>
+<a href="https://afdian.com/a/toolboxpro" target="_blank" style="display:inline-block;margin-top:8px;background:#f59e0b;color:#fff;padding:8px 20px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:700;">去爱发电 →</a>
+</div>
+</div>
+<div style="margin-top:12px;">
+<a href="https://github.com/dingpeng29/uuid-generator" target="_blank" style="color:#92400e;font-weight:600;text-decoration:none;font-size:13px;">⭐ 也欢迎给个 GitHub Star</a>
+</div>
+</div>
+
+<div class="card">
+<h2>🎲 生成UUID</h2>
+<div class="uuid-display" id="uuidDisplay">
+<div class="uuid-text" id="uuidText">点击按钮生成</div>
+<button class="btn btn-green" onclick="copyMain()">📋 复制</button>
+</div>
+
+<div style="font-size:13px;color:var(--text2);margin-bottom:8px;">版本</div>
+<div style="display:flex;gap:8px;margin-bottom:12px;">
+<label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:14px;"><input type="radio" name="version" value="v4" checked onchange="gen()"> UUID v4 (随机)</label>
+<label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:14px;margin-left:16px;"><input type="radio" name="version" value="v1" onchange="gen()"> UUID v1 (时间戳)</label>
+</div>
+
+<div style="font-size:13px;color:var(--text2);margin-bottom:8px;">输出格式</div>
+<div class="format-row" id="formatRow">
+<span class="format-tag active" onclick="setFormat(this,'std')">标准 8-4-4-4-12</span>
+<span class="format-tag" onclick="setFormat(this,'upper')">大写</span>
+<span class="format-tag" onclick="setFormat(this,'naked')">无连字符</span>
+<span class="format-tag" onclick="setFormat(this,'braces')">{...}</span>
+</div>
+
+<div class="btn-row">
+<button class="btn btn-primary btn-lg" onclick="gen()">🎲 生成一个</button>
+<button class="btn btn-secondary" onclick="genBatch(10)">📋 生成10个</button>
+<button class="btn btn-secondary" onclick="genBatch(50)">📋 生成50个</button>
+</div>
+
+<div class="uuid-list" id="uuidList" style="display:none;"></div>
+</div>
+
+<div class="card">
+<h2>💡 UUID 使用场景</h2>
+<ul style="font-size:14px;color:var(--text2);padding-left:20px;line-height:2;">
+<li><strong>数据库主键</strong> — 分布式系统唯一ID，避免自增ID冲突</li>
+<li><strong>文件名</strong> — 生成唯一文件名，防止覆盖</li>
+<li><strong>API Token / Session ID</strong> — 生成难以猜测的标识符</li>
+<li><strong>事务ID / 追踪ID</strong> — 分布式链路追踪</li>
+<li><strong>UUID v4</strong> — 基于随机数，最常用</li>
+<li><strong>UUID v1</strong> — 基于时间戳+MAC地址，包含时间信息</li>
+</ul>
+</div>
+
+<div class="powered">由 <a href="/">ToolBox Pro</a> 提供支持 · <a href="https://github.com/dingpeng29/uuid-generator" target="_blank">GitHub</a></div>
+</div>
+<footer class="footer"><p>UUID Generator — 所有生成在浏览器本地完成 · <a href="https://github.com/dingpeng29/uuid-generator" target="_blank">GitHub</a> · <a href="/">更多免费工具 →</a></p></footer>
+<div class="copy-toast" id="toast"></div>
+
+<script>
+var currentFormat='std';
+
+function setFormat(el,fmt){
+currentFormat=fmt;
+var tags=document.getElementById('formatRow').querySelectorAll('.format-tag');
+tags.forEach(function(t){t.classList.remove('active');});
+el.classList.add('active');
+gen();
+}
+
+function formatUuid(hex,ver){
+var s8=hex.substr(0,8), s4a=hex.substr(8,4), s4b=hex.substr(12,4), s4c=hex.substr(16,4), s12=hex.substr(20,12);
+var std=s8+'-'+s4a+'-'+ver+s4b.substr(1)+'-'+(parseInt(s4c[0],16)|8).toString(16)+s4c.substr(1)+'-'+s12;
+switch(currentFormat){
+case 'upper': return std.toUpperCase();
+case 'naked': return std.replace(/-/g,'');
+case 'braces': return '{'+std+'}';
+default: return std;
+}
+}
+
+function v4(){
+var arr=new Uint8Array(16);
+crypto.getRandomValues(arr);
+var hex='';
+for(var i=0;i<16;i++) hex+=arr[i].toString(16).padStart(2,'0');
+return formatUuid(hex,'4');
+}
+
+function v1(){
+var now=Date.now();
+var seq=Math.floor(Math.random()*16384);
+var node=new Uint8Array(6);
+crypto.getRandomValues(node);
+node[0]|=0x01;
+
+var tl=now+12219292800000;
+if(tl<0)tl=0;
+var th=Math.floor(tl/4294967296)&0x0fff;
+var tl_lo=tl&0xffffffff;
+
+var hex='';
+hex+=tl_lo.toString(16).padStart(8,'0');
+hex+=(th&0x0fff).toString(16).padStart(4,'0');
+hex+='1'; var v1t=((th>>12)&0x0fff).toString(16); hex+=v1t.padStart(3,'0');
+hex+=(0x8000|(seq&0x3fff)).toString(16).padStart(4,'0');
+for(var i=0;i<6;i++) hex+=node[i].toString(16).padStart(2,'0');
+
+return formatUuid(hex,'1');
+}
+
+function gen(){
+var ver=document.querySelector('input[name="version"]:checked').value;
+var uuid=ver==='v1'?v1():v4();
+document.getElementById('uuidText').textContent=uuid;
+document.getElementById('uuidList').style.display='none';
+}
+
+function genBatch(n){
+var ver=document.querySelector('input[name="version"]:checked').value;
+var list=document.getElementById('uuidList');
+var html='';
+for(var i=0;i<n;i++){
+var uuid=ver==='v1'?v1():v4();
+html+='<div class="uuid-item"><span class="n">'+(i+1)+'</span><span class="txt">'+escHtml(uuid)+'</span><button class="btn btn-sm btn-secondary" onclick="copyItem(this,\''+escHtml(uuid)+'\')">复制</button></div>';
+}
+list.innerHTML=html;
+list.style.display='flex';
+}
+
+function copyMain(){
+var text=document.getElementById('uuidText').textContent;
+navigator.clipboard.writeText(text);
+toast('已复制');
+}
+
+function copyItem(btn,text){
+navigator.clipboard.writeText(text);
+btn.textContent='已复制';
+setTimeout(function(){btn.textContent='复制';},1500);
+}
+
+function toast(msg){
+var t=document.getElementById('toast');
+t.textContent=msg;t.classList.add('show');
+clearTimeout(t._tid);
+t._tid=setTimeout(function(){t.classList.remove('show');},1800);
+}
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+gen();
+</script>
+
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') { bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; }
+else { bp.src = 'http://push.zhanzhang.baidu.com/push.js'; }
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</body>
+</html>
